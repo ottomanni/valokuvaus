@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hääkuvaus – Valokuvaaja</title>
+  <style>
+    body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222;}
+    header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 3rem;background:#fff;position:sticky;top:0;box-shadow:0 2px 10px rgba(0,0,0,.05);z-index:10;}
+    header a{color:#111;text-decoration:none;font-weight:600;}
+    nav a{margin-left:1.5rem;text-decoration:none;color:#333;font-weight:500;}
+    .container{max-width:1100px;margin:auto;padding:2.5rem 3rem 4rem;}
+    h1{margin:.2rem 0 0.6rem 0;font-size:2.4rem;}
+    .lead{color:#555;line-height:1.6;max-width:75ch;margin:0 0 2rem 0;}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin: 1.2rem 0 2rem;
+    }
+    .grid img{
+      width:100%;
+      height:170px;
+      object-fit:cover;
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+      cursor: zoom-in;
+      display:block;
+    }
+
+    .card{
+      background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);
+      padding:1.4rem 1.4rem;
+      margin: 1.2rem 0;
+    }
+    .card h2{margin:0 0 .6rem 0;font-size:1.5rem;}
+    .card p{margin:.5rem 0;color:#444;line-height:1.6;}
+
+    .prices{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:.8rem;
+    }
+    .price{
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:14px;
+      padding:1.1rem;
+      background: #fff;
+    }
+    .price h3{margin:0 0 .35rem 0;}
+    .price .eur{font-size:1.4rem;font-weight:700;margin:.2rem 0 .6rem 0;}
+    .price ul{margin:0;padding-left:1.1rem;color:#444;line-height:1.6;}
+    .btn{display:inline-block;padding:.8rem 2rem;background:#111;color:#fff;text-decoration:none;border-radius:30px;margin-top:.8rem;transition:.3s;}
+    .btn:hover{background:#444;}
+
+    footer{text-align:center;padding:2rem;background:#111;color:#ddd;margin-top:3rem;}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:999;padding:18px;}
+    .lightbox.open{display:flex;}
+    .lightbox img{max-width:min(1100px,96vw);max-height:80vh;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.35);cursor:zoom-out;}
+
+    @media(max-width:1100px){
+      .grid{grid-template-columns:repeat(2,1fr);}
+      .prices{grid-template-columns:1fr;}
+    }
+    @media(max-width:900px){
+      header{padding:1.2rem 1.5rem;}
+      .container{padding:2rem 1.5rem 3.5rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html">← Etusivulle</a>
+    <nav>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="haakuvaus.html">Hääkuvaus</a>
+      <a href="portretit.html">Portretit</a>
+      <a href="perhekuvaus.html">Perhekuvaus</a>
+      <a href="muut.html">Muut</a>
+      <a href="yhteys.html">Yhteys</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Hääkuvaus</h1>
+    <p class="lead">
+      Tunnelmallinen ja dokumentaarinen hääpäivän kuvakertomus. Suunnitellaan aikataulu ja tyyli yhdessä,
+      jotta lopputulos näyttää teiltä.
+    </p>
+
+    <!-- Esimerkkikuvat (4–10) -->
+    <div class="grid" id="gallery">
+      <img src="https://images.unsplash.com/photo-1523438097201-512ae7d59c5a?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 1">
+      <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 2">
+      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 3">
+      <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 4">
+      <img src="https://images.unsplash.com/photo-1523438097201-512ae7d59c5a?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 5">
+      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 6">
+      <img src="https://images.unsplash.com/photo-1523438097201-512ae7d59c5a?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 7">
+      <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=80" alt="Hääkuva 8">
+    </div>
+
+    <section class="card">
+      <h2>Mitä hääkuvaus sisältää?</h2>
+      <p>• Ennakko suunnittelu (puhelu/viestit, aikataulu, toiveet)</p>
+      <p>• Kuvaus sovitun tuntimäärän mukaan</p>
+      <p>• Kuvien huolellinen valinta ja viimeistely</p>
+      <p>• Toimitus digigalleriana (lataus + jakolinkki)</p>
+    </section>
+
+    <section class="card">
+      <h2>Hinnasto</h2>
+      <div class="prices">
+        <div class="price">
+          <h3>Mini</h3>
+          <div class="eur">€ 490</div>
+          <ul>
+            <li>2 h kuvaus</li>
+            <li>50+ viimeisteltyä kuvaa</li>
+            <li>Digigalleria</li>
+          </ul>
+        </div>
+
+        <div class="price">
+          <h3>Classic</h3>
+          <div class="eur">€ 990</div>
+          <ul>
+            <li>5 h kuvaus</li>
+            <li>200+ viimeisteltyä kuvaa</li>
+            <li>Digigalleria</li>
+          </ul>
+        </div>
+
+        <div class="price">
+          <h3>Full day</h3>
+          <div class="eur">€ 1690</div>
+          <ul>
+            <li>10 h kuvaus</li>
+            <li>500+ viimeisteltyä kuvaa</li>
+            <li>Digigalleria</li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="btn" href="yhteys.html">Pyydä tarjous / varaa aika</a>
+    </section>
+  </main>
+
+  <footer>© 2025 Valokuvaaja. Kaikki oikeudet pidätetään.</footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <img id="lbImg" alt="Kuva isona" />
+  </div>
+
+  <script>
+    // Kevyt lightbox esimerkkikuville
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+
+    document.getElementById("gallery").addEventListener("click", (e) => {
+      const img = e.target.closest("img");
+      if (!img) return;
+      lbImg.src = img.src;
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    });
+
+    function close(){
+      lightbox.classList.remove("open");
+      lbImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    lightbox.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valokuvaaja – Portfolio</title>
+  <style>
+    :root{
+      --bg:#f5f5f5;
+      --text:#222;
+      --muted:#666;
+      --card:#fff;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius:14px;
+    }
+
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1.5rem 3rem;
+      background:white;
+      position:sticky;
+      top:0;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+      z-index:10;
+    }
+
+    header a{
+      text-decoration:none;
+      color:#111;
+      font-weight:600;
+    }
+
+    nav a{
+      margin-left:1.5rem;
+      text-decoration:none;
+      color:#333;
+      font-weight:500;
+    }
+
+    .container{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 3rem 4rem;
+    }
+
+    h1{
+      margin: 0 0 0.5rem 0;
+      font-size: 2.4rem;
+    }
+
+    .intro{
+      color: var(--muted);
+      margin: 0 0 2rem 0;
+      line-height: 1.6;
+      max-width: 70ch;
+    }
+
+    .category{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .category-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .category-head h2{
+      margin:0;
+      font-size: 1.6rem;
+    }
+
+    .category-head p{
+      margin:0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Slider */
+    .slider-wrap{
+      position: relative;
+    }
+
+    .slider{
+      display:flex;
+      gap: 14px;
+      overflow-x:auto;
+      scroll-snap-type: x mandatory;
+      padding: 6px 52px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .slide{
+      scroll-snap-align: start;
+      flex: 0 0 auto;
+      width: 280px;
+      border-radius: 12px;
+      overflow:hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      cursor: zoom-in;
+      background:#eee;
+      position: relative;
+    }
+
+    .slide img{
+      width:100%;
+      height: 190px;
+      object-fit: cover;
+      display:block;
+      transition: transform .25s ease;
+    }
+
+    .slide:hover img{ transform: scale(1.03); }
+
+    .slide .label{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      background: rgba(0,0,0,0.55);
+      color:#fff;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .navbtn{
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(17,17,17,0.85);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 18px;
+      z-index: 2;
+    }
+
+    .navbtn:hover{ background: rgba(17,17,17,0.95); }
+    .navbtn:active{ transform: translateY(-50%) scale(0.98); }
+
+    .prev{ left: 10px; }
+    .next{ right: 10px; }
+
+    /* Lightbox */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 999;
+      padding: 18px;
+    }
+
+    .lightbox.open{ display:flex; }
+
+    .lightbox-inner{
+      width: min(1100px, 96vw);
+      height: min(80vh, 760px);
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .lightbox-img{
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 14px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+      cursor: zoom-out;
+    }
+
+    .lb-close, .lb-prev, .lb-next{
+      position:absolute;
+      border: none;
+      border-radius: 999px;
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.14);
+      color: white;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 20px;
+      backdrop-filter: blur(6px);
+    }
+
+    .lb-close{ top: 8px; right: 8px; font-size: 18px; }
+    .lb-prev{ left: 8px; top: 50%; transform: translateY(-50%); }
+    .lb-next{ right: 8px; top: 50%; transform: translateY(-50%); }
+
+    .lb-meta{
+      position:absolute;
+      left: 10px;
+      bottom: 10px;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.95rem;
+      background: rgba(0,0,0,0.35);
+      padding: 8px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      max-width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    footer{
+      text-align:center;
+      padding: 2rem;
+      background:#111;
+      color:#ddd;
+    }
+
+    @media (max-width: 900px){
+      header{ padding: 1.2rem 1.5rem; }
+      .container{ padding: 2rem 1.5rem 3.5rem; }
+      .slide{ width: 240px; }
+      .slide img{ height: 170px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="valokuvaus.html">← Takaisin etusivulle</a>
+    <nav>
+      <a href="#haakuvat">Hääkuvat</a>
+      <a href="#portretit">Portretit</a>
+      <a href="#perhekuvat">Perhekuvat</a>
+      <a href="#muut">Muut</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Portfolio</h1>
+    <p class="intro">
+      Alta löydät työnäytteitä kategorioittain. Voit selata rivejä nuolilla tai hiirellä/trackpadilla.
+      Klikkaa kuvaa avataksesi sen isoksi.
+    </p>
+
+    <section id="haakuvat" class="category">
+      <div class="category-head">
+        <div><h2>Hääkuvat</h2><p>Hetket, tunnelma ja tarina.</p></div>
+      </div>
+      <div class="slider-wrap">
+        <button class="navbtn prev" data-target="slider-haat" aria-label="Edellinen">‹</button>
+        <div class="slider" id="slider-haat" data-category="Hääkuvat"></div>
+        <button class="navbtn next" data-target="slider-haat" aria-label="Seuraava">›</button>
+      </div>
+    </section>
+
+    <section id="portretit" class="category">
+      <div class="category-head">
+        <div><h2>Portretit</h2><p>Luonnolliset ja tyylikkäät potretit.</p></div>
+      </div>
+      <div class="slider-wrap">
+        <button class="navbtn prev" data-target="slider-portretit" aria-label="Edellinen">‹</button>
+        <div class="slider" id="slider-portretit" data-category="Portretit"></div>
+        <button class="navbtn next" data-target="slider-portretit" aria-label="Seuraava">›</button>
+      </div>
+    </section>
+
+    <section id="perhekuvat" class="category">
+      <div class="category-head">
+        <div><h2>Perhekuvat</h2><p>Aitoa arkea ja läheisyyttä.</p></div>
+      </div>
+      <div class="slider-wrap">
+        <button class="navbtn prev" data-target="slider-perhe" aria-label="Edellinen">‹</button>
+        <div class="slider" id="slider-perhe" data-category="Perhekuvat"></div>
+        <button class="navbtn next" data-target="slider-perhe" aria-label="Seuraava">›</button>
+      </div>
+    </section>
+
+    <section id="muut" class="category">
+      <div class="category-head">
+        <div><h2>Muut kuvaukset</h2><p>Tapahtumat, yritykset ja luovat projektit.</p></div>
+      </div>
+      <div class="slider-wrap">
+        <button class="navbtn prev" data-target="slider-muut" aria-label="Edellinen">‹</button>
+        <div class="slider" id="slider-muut" data-category="Muut kuvaukset"></div>
+        <button class="navbtn next" data-target="slider-muut" aria-label="Seuraava">›</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 Valokuvaaja. Kaikki oikeudet pidätetään.</footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+      <button class="lb-close" id="lbClose" aria-label="Sulje">✕</button>
+      <button class="lb-prev" id="lbPrev" aria-label="Edellinen">‹</button>
+      <img class="lightbox-img" id="lbImg" alt="Kuva isona" />
+      <button class="lb-next" id="lbNext" aria-label="Seuraava">›</button>
+      <div class="lb-meta" id="lbMeta"></div>
+    </div>
+  </div>
+
+  <script>
+    // Repo (sun asetukset)
+    const OWNER = "easypagehub-test-web";
+    const REPO = "valokuv";
+    const BRANCH = "main";
+    const GITHUB_RAW_BASE = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}`;
+
+    // Manifestit
+    const MANIFESTS = [
+      { sliderId: "slider-haat",      manifestUrl: `${GITHUB_RAW_BASE}/data/haakuvat.json` },
+      { sliderId: "slider-portretit", manifestUrl: `${GITHUB_RAW_BASE}/data/portretit.json` },
+      { sliderId: "slider-perhe",     manifestUrl: `${GITHUB_RAW_BASE}/data/perhekuvat.json` },
+      { sliderId: "slider-muut",      manifestUrl: `${GITHUB_RAW_BASE}/data/muut.json` }
+    ];
+
+    // folder normalisointi: jos JSON:issa "haakuvat" -> "data/haakuvat"
+    function normalizeFolder(folder){
+      const f = String(folder || "").replace(/^\/+/, "");
+      if (f.startsWith("data/")) return f;
+      return `data/${f}`;
+    }
+
+    function buildUrl(folder, file){
+      const baseFolder = normalizeFolder(folder);
+      return `${GITHUB_RAW_BASE}/${encodeURIComponent(baseFolder)}/${encodeURIComponent(file)}`;
+    }
+
+    // Indeksit lightboxia varten
+    const allImagesIndex = []; // {categoryTitle, url, file, folder}
+    const categoryToIndices = new Map();
+
+    function renderGalleryFromManifest(manifest, sliderId){
+      const slider = document.getElementById(sliderId);
+      if (!slider) return;
+
+      const indices = [];
+      (manifest.files || []).forEach((file) => {
+        const url = buildUrl(manifest.folder, file);
+        const idx = allImagesIndex.length;
+
+        allImagesIndex.push({ categoryTitle: manifest.title, url, file, folder: manifest.folder });
+        indices.push(idx);
+
+        const card = document.createElement("div");
+        card.className = "slide";
+        card.tabIndex = 0;
+        card.dataset.index = String(idx);
+
+        const img = document.createElement("img");
+        img.loading = "lazy";
+        img.src = url;
+        img.alt = `${manifest.title} – ${file}`;
+
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = manifest.title;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        slider.appendChild(card);
+      });
+
+      categoryToIndices.set(manifest.title, indices);
+    }
+
+    async function loadManifests(){
+      const results = await Promise.all(
+        MANIFESTS.map(async (m) => {
+          const res = await fetch(m.manifestUrl, { cache: "no-store" });
+          if (!res.ok) throw new Error(`Manifestin lataus epäonnistui (${res.status}): ${m.manifestUrl}`);
+          const data = await res.json();
+          if (!data || !data.title || !data.folder || !Array.isArray(data.files)) {
+            throw new Error(`Virheellinen manifest: ${m.manifestUrl}`);
+          }
+          return { sliderId: m.sliderId, manifest: data };
+        })
+      );
+      return results;
+    }
+
+    // Slider-napit
+    function scrollSlider(sliderEl, direction){
+      const amount = Math.min(900, sliderEl.clientWidth * 0.9);
+      sliderEl.scrollBy({ left: direction * amount, behavior: "smooth" });
+    }
+
+    document.querySelectorAll(".navbtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-target");
+        const slider = document.getElementById(targetId);
+        if (!slider) return;
+        const dir = btn.classList.contains("prev") ? -1 : 1;
+        scrollSlider(slider, dir);
+      });
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbMeta = document.getElementById("lbMeta");
+    const lbClose = document.getElementById("lbClose");
+    const lbPrev = document.getElementById("lbPrev");
+    const lbNext = document.getElementById("lbNext");
+
+    let currentIndex = -1;
+    let currentCategory = null;
+    let currentCategoryIndices = [];
+
+    function openLightbox(index){
+      const item = allImagesIndex[index];
+      if (!item) return;
+
+      currentIndex = index;
+      currentCategory = item.categoryTitle;
+      currentCategoryIndices = categoryToIndices.get(currentCategory) || [];
+
+      lbImg.src = item.url;
+      lbMeta.textContent = `${item.categoryTitle} • ${item.file}`;
+
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lbImg.src = "";
+      currentIndex = -1;
+      currentCategory = null;
+      currentCategoryIndices = [];
+    }
+
+    function goRelative(step){
+      if (currentIndex < 0 || !currentCategoryIndices.length) return;
+      const pos = currentCategoryIndices.indexOf(currentIndex);
+      if (pos === -1) return;
+      const nextPos = (pos + step + currentCategoryIndices.length) % currentCategoryIndices.length;
+      openLightbox(currentCategoryIndices[nextPos]);
+    }
+
+    document.addEventListener("click", (e) => {
+      const slide = e.target.closest(".slide");
+      if (!slide) return;
+      openLightbox(Number(slide.dataset.index));
+    });
+
+    document.addEventListener("keydown", (e) => {
+      const active = document.activeElement;
+      if (active && active.classList && active.classList.contains("slide")) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLightbox(Number(active.dataset.index));
+        }
+      }
+
+      if (!lightbox.classList.contains("open")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") goRelative(-1);
+      if (e.key === "ArrowRight") goRelative(1);
+    });
+
+    lbClose.addEventListener("click", closeLightbox);
+    lbPrev.addEventListener("click", () => goRelative(-1));
+    lbNext.addEventListener("click", () => goRelative(1));
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+    lbImg.addEventListener("click", closeLightbox);
+
+    (async function init(){
+      try{
+        const loaded = await loadManifests();
+        loaded.forEach(({ sliderId, manifest }) => renderGalleryFromManifest(manifest, sliderId));
+      }catch(err){
+        console.error(err);
+        alert("Kuvien lataus epäonnistui. Tarkista data/*.json ja kansiopolut.");
+      }
+    })();
+  </script>
+
+</body>
+</html>

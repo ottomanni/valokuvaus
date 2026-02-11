@@ -1,0 +1,73 @@
+{
+  "services": [
+    {
+      "id": "haakuvaus",
+      "title": "Hääkuvaus",
+      "teaser": "Dokumentaarinen ja tunnelmallinen hääpäivän tarina.",
+      "themeImage": "themes/haakuvaus.jpg",
+      "description": "Tunnelmallinen ja dokumentaarinen hääpäivän kuvakertomus. Suunnitellaan aikataulu ja toiveet yhdessä.",
+      "folder": "haakuvat",
+      "previewManifestUrl": "data/haakuvat.json",
+      "previewFiles": ["001.jpg", "002.jpg", "003.jpg"],
+      "includes": [
+        "Ennakkosuunnittelu",
+        "Kuvaus sovitun tuntimäärän mukaan",
+        "Kuvien valinta ja viimeistely",
+        "Toimitus digigalleriana"
+      ],
+      "pricing": [
+        { "name": "Mini", "price": "€ 490", "items": ["2 h kuvaus", "50+ kuvaa", "Digigalleria"] },
+        { "name": "Classic", "price": "€ 990", "items": ["5 h kuvaus", "200+ kuvaa", "Digigalleria"] },
+        { "name": "Full day", "price": "€ 1690", "items": ["10 h kuvaus", "500+ kuvaa", "Digigalleria"] }
+      ]
+    },
+    {
+      "id": "portretit",
+      "title": "Portretit",
+      "teaser": "Luonnolliset potretit studiolla tai miljöössä.",
+      "themeImage": "themes/portretit.jpg",
+      "description": "Potretit yksilöille ja ammattilaisille — ohjaan lempeästi ja pidän tunnelman rentona.",
+      "folder": "portretit",
+      "previewManifestUrl": "data/portretit.json",
+      "previewFiles": ["001.jpg", "002.jpg", "003.jpg"],
+      "includes": ["Suunnittelu + tyyli", "Kuvaus", "Valinta ja viimeistely", "Toimitus digigalleriana"],
+      "pricing": [
+        { "name": "Mini", "price": "€ 190", "items": ["30 min", "10 kuvaa", "Digigalleria"] },
+        { "name": "Standard", "price": "€ 320", "items": ["60 min", "25 kuvaa", "Digigalleria"] },
+        { "name": "Pro", "price": "€ 520", "items": ["90 min", "45 kuvaa", "Digigalleria"] }
+      ]
+    },
+    {
+      "id": "perhekuvaus",
+      "title": "Perhekuvaus",
+      "teaser": "Aitoa arkea ja läheisyyttä — teidän näköisesti.",
+      "themeImage": "themes/perhe.jpg",
+      "description": "Perhekuvaus miljöössä tai kotona. Keskitytään aitoihin hetkiin ilman jäykkää poseerausta.",
+      "folder": "perhekuvat",
+      "previewManifestUrl": "data/perhekuvat.json",
+      "previewFiles": ["001.jpg", "002.jpg", "003.jpg"],
+      "includes": ["Suunnittelu", "Kuvaus", "Viimeistely", "Toimitus digigalleriana"],
+      "pricing": [
+        { "name": "Mini", "price": "€ 220", "items": ["30–45 min", "15 kuvaa", "Digigalleria"] },
+        { "name": "Standard", "price": "€ 360", "items": ["60–75 min", "30 kuvaa", "Digigalleria"] },
+        { "name": "Plus", "price": "€ 520", "items": ["90 min", "50 kuvaa", "Digigalleria"] }
+      ]
+    },
+    {
+      "id": "muut",
+      "title": "Muut kuvaukset",
+      "teaser": "Tapahtumat, yrityskuvat ja luovat projektit.",
+      "themeImage": "themes/muut.jpg",
+      "description": "Kuvaan tapahtumia ja yrityksiä sekä räätälöityjä projekteja. Pyydä tarjous tarpeesi mukaan.",
+      "folder": "muut-kuvaukset",
+      "previewManifestUrl": "data/muut.json",
+      "previewFiles": ["001.jpg", "002.jpg", "003.jpg"],
+      "includes": ["Tarpeiden kartoitus", "Kuvaus", "Viimeistely", "Toimitus"],
+      "pricing": [
+        { "name": "Keikka", "price": "alk. € 350", "items": ["1–2 h", "Toimitus sopimuksen mukaan"] },
+        { "name": "Tapahtuma", "price": "alk. € 650", "items": ["3–5 h", "Raportointi / some-kuvat"] },
+        { "name": "Yrityspäivä", "price": "alk. € 950", "items": ["6–8 h", "Laaja kuvapankki"] }
+      ]
+    }
+  ]
+}
