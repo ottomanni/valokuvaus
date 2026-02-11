@@ -17,8 +17,8 @@
       ],
       "pricing": [
         { "name": "Mini", "price": "€ 490", "items": ["2 h kuvaus", "50+ kuvaa", "Digigalleria"] },
-        { "name": "Classic", "price": "€ 990", "items": ["5 h kuvaus", "200+ kuvaa", "Digigalleria"] },
-        { "name": "Full day", "price": "€ 1690", "items": ["10 h kuvaus", "500+ kuvaa", "Digigalleria"] }
+        { "name": "Perus", "price": "€ 990", "items": ["5 h kuvaus", "200+ kuvaa", "Digigalleria"] },
+        { "name": "Koko päivä", "price": "€ 1690", "items": ["10 h kuvaus", "500+ kuvaa", "Digigalleria"] }
       ]
     },
     {
@@ -33,7 +33,7 @@
       "includes": ["Suunnittelu + tyyli", "Kuvaus", "Valinta ja viimeistely", "Toimitus digigalleriana"],
       "pricing": [
         { "name": "Mini", "price": "€ 190", "items": ["30 min", "10 kuvaa", "Digigalleria"] },
-        { "name": "Standard", "price": "€ 320", "items": ["60 min", "25 kuvaa", "Digigalleria"] },
+        { "name": "Perus", "price": "€ 320", "items": ["60 min", "25 kuvaa", "Digigalleria"] },
         { "name": "Pro", "price": "€ 520", "items": ["90 min", "45 kuvaa", "Digigalleria"] }
       ]
     },
