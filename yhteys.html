@@ -4,34 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yhteys – Valokuvaaja</title>
-  <style>
-    body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222;}
-    header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 3rem;background:#fff;position:sticky;top:0;box-shadow:0 2px 10px rgba(0,0,0,.05);z-index:10;}
-    header a{color:#111;text-decoration:none;font-weight:600;}
-    nav a{margin-left:1.5rem;text-decoration:none;color:#333;font-weight:500;}
-    .container{max-width:900px;margin:auto;padding:2.5rem 3rem 4rem;}
-    h1{margin:.2rem 0 0.6rem 0;font-size:2.2rem;}
-    p{color:#444;line-height:1.7;}
-    .card{background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);padding:1.4rem;margin:1.2rem 0;}
-    .btn{display:inline-block;padding:.8rem 2rem;background:#111;color:#fff;text-decoration:none;border-radius:30px;margin-top:.6rem;transition:.3s;}
-    .btn:hover{background:#444;}
-    footer{text-align:center;padding:2rem;background:#111;color:#ddd;margin-top:3rem;}
-    @media(max-width:900px){header{padding:1.2rem 1.5rem;} .container{padding:2rem 1.5rem 3.5rem;}}
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <a href="index.html">← Takaisin etusivulle</a>
-    <nav>
-      <a href="#haakuvat">Hääkuvat</a>
-      <a href="#portretit">Portretit</a>
-      <a href="#perhekuvat">Perhekuvat</a>
-      <a href="#muut">Muut</a>
+  <header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">Valokuvaaja <small>luonnolliset tarinat</small></a>
+    <nav class="site-nav" aria-label="Päävalikko">
+      <a href="index.html">Etusivu</a>
+      <a href="palvelut.html">Palvelut</a>
+      <a href="yhteys.html">Yhteys</a>
     </nav>
-  </header>
+  </div>
+</header>
 
   <main class="container">
+    <div class="kicker">Yhteydenotto</div>
     <h1>Ota yhteyttä</h1>
     <p>Kerro millainen kuvaus on mielessä (päivämäärä, paikka, tyyli), niin palaan sinulle nopeasti.</p>
 
@@ -39,7 +28,7 @@
       <p><strong>Sähköposti:</strong> ottomanninen91@gmail.com</p>
       <p><strong>Puhelin:</strong> (lisää tähän)</p>
       <p><strong>Alue:</strong> (esim. Helsinki + matkustus sopimuksen mukaan)</p>
-      <a class="btn" href="mailto:valokuvaaja@example.com">Lähetä sähköposti</a>
+      <a class="btn" href="mailto:ottomanninen91@gmail.com">Lähetä sähköposti</a>
     </div>
 
     <div class="card">
@@ -48,7 +37,15 @@
     </div>
   </main>
 
-  <footer>© 2025 Valokuvaaja. Kaikki oikeudet pidätetään.</footer>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <p>© 2026 Valokuvaaja. Kaikki oikeudet pidätetään.</p>
+    <div class="footer-links">
+      <a href="palvelut.html">Palvelut</a>
+      <a href="yhteys.html">Yhteys</a>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>

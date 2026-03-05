@@ -4,249 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Palvelut – Valokuvaaja</title>
-  <style>
-    :root{
-      --bg:#f5f5f5;
-      --text:#222;
-      --muted:#555;
-      --card:#fff;
-      --shadow:0 10px 30px rgba(0,0,0,0.08);
-      --radius:14px;
-    }
-
-    body{ margin:0; font-family: Arial, sans-serif; background:var(--bg); color:var(--text); }
-
-    header{
-      display:flex; justify-content:space-between; align-items:center;
-      padding:1.5rem 3rem; background:white; position:sticky; top:0;
-      box-shadow:0 2px 10px rgba(0,0,0,0.05); z-index:10;
-    }
-    header a{ text-decoration:none; color:#111; font-weight:600; }
-    nav a{ margin-left:1.5rem; text-decoration:none; color:#333; font-weight:500; }
-
-    .container{ max-width:1200px; margin:0 auto; padding:2.5rem 3rem 4rem; }
-
-    h1{ margin:0 0 .5rem 0; font-size:2.4rem; }
-    .intro{ margin:0 0 1.5rem 0; color:var(--muted); line-height:1.6; max-width:80ch; }
-
-    /* YLÄOSA: 4 teemakorttia */
-    .themes{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:14px;
-      margin: 1.2rem 0 2rem;
-    }
-    .theme{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      cursor:pointer;
-      transition: transform .18s ease, box-shadow .18s ease;
-      text-decoration:none;
-      color:inherit;
-      display:flex;
-      flex-direction:column;
-      min-height: 250px;
-    }
-    .theme:hover{
-      transform: translateY(-3px);
-      box-shadow:0 14px 40px rgba(0,0,0,0.12);
-    }
-    .theme img{
-      width:100%;
-      height: 140px;
-      object-fit:cover;
-      display:block;
-    }
-    .theme .content{
-      padding:1rem;
-      display:flex;
-      flex-direction:column;
-      gap:.5rem;
-      flex:1;
-    }
-    .theme h3{ margin:0; font-size:1.1rem; }
-    .theme p{ margin:0; color:var(--muted); line-height:1.5; font-size:.95rem; flex:1; }
-    .theme .cta{ font-weight:700; margin-top:.2rem; }
-
-    /* Renderöity palvelu */
-    .service-wrap{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:1.6rem;
-      margin: 1.2rem 0 2rem;
-    }
-    .service-head{
-      display:flex;
-      gap:1.2rem;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .service-head h2{
-      margin:.1rem 0 .3rem 0;
-      font-size: 2rem;
-    }
-    .service-head .desc{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      max-width: 80ch;
-    }
-
-    /* Esimerkkikuvat palvelulle */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px;
-      margin: 1.2rem 0 1.4rem;
-    }
-    .grid img{
-      width:100%;
-      height:170px;
-      object-fit:cover;
-      border-radius:12px;
-      box-shadow:0 10px 30px rgba(0,0,0,.08);
-      cursor: zoom-in;
-      display:block;
-    }
-
-    /* Info + hinnasto */
-    .cards{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .card{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.08);
-      border-radius:14px;
-      padding:1.2rem;
-    }
-    .card h3{ margin:0 0 .6rem 0; }
-    .card p{ margin:.45rem 0; color:#444; line-height:1.6; }
-
-    .prices{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-      margin-top: .5rem;
-    }
-    .price{
-      border:1px solid rgba(0,0,0,.08);
-      border-radius:14px;
-      padding:1rem;
-    }
-    .price h4{ margin:0 0 .25rem 0; }
-    .price .eur{ font-size:1.25rem; font-weight:800; margin:.2rem 0 .55rem 0; }
-    .price ul{ margin:0; padding-left: 1.1rem; color:#444; line-height:1.6; }
-
-    .btn{
-      display:inline-block;
-      padding:.8rem 2rem;
-      background:#111;
-      color:#fff;
-      text-decoration:none;
-      border-radius:30px;
-      margin-top:.8rem;
-      transition:.3s;
-    }
-    .btn:hover{ background:#444; }
-
-    /* Portfolio CTA */
-    .cta-block{
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 2rem 1.6rem;
-      margin-top: 2rem;
-      text-align: center;
-    }
-    .cta-block h2{ margin:0 0 .4rem 0; }
-    .cta-block p{ margin:0; color: var(--muted); line-height:1.6; }
-
-    /* Lightbox */
-    .lightbox{
-      position:fixed; inset:0; background: rgba(0,0,0,0.88);
-      display:none; align-items:center; justify-content:center;
-      z-index:999; padding:18px;
-    }
-    .lightbox.open{ display:flex; }
-    .lightbox-inner{
-      width: min(1100px, 96vw);
-      height: min(80vh, 760px);
-      position: relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .lightbox-img{
-      max-width:100%; max-height:100%;
-      border-radius:14px;
-      box-shadow:0 18px 50px rgba(0,0,0,.35);
-      cursor: zoom-out;
-    }
-    .lb-close, .lb-prev, .lb-next{
-      position:absolute;
-      border:none;
-      border-radius:999px;
-      width:42px;
-      height:42px;
-      background: rgba(255,255,255,0.14);
-      color:#fff;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:20px;
-      backdrop-filter: blur(6px);
-    }
-    .lb-close{ top:8px; right:8px; font-size:18px; }
-    .lb-prev{ left:8px; top:50%; transform: translateY(-50%); }
-    .lb-next{ right:8px; top:50%; transform: translateY(-50%); }
-    .lb-meta{
-      position:absolute; left:10px; bottom:10px;
-      color: rgba(255,255,255,0.9);
-      font-size:0.95rem;
-      background: rgba(0,0,0,0.35);
-      padding:8px 12px;
-      border-radius:999px;
-      backdrop-filter: blur(6px);
-      max-width:80%;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    footer{ text-align:center; padding:2rem; background:#111; color:#ddd; margin-top:3rem; }
-
-    @media (max-width: 1100px){
-      .themes{ grid-template-columns: repeat(2,1fr); }
-      .grid{ grid-template-columns: repeat(2,1fr); }
-      .cards{ grid-template-columns: 1fr; }
-    }
-    @media (max-width: 900px){
-      header{ padding:1.2rem 1.5rem; }
-      .container{ padding:2rem 1.5rem 3.5rem; }
-    }
-    @media (max-width: 520px){
-      .themes{ grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <a href="index.html">← Etusivulle</a>
-    <nav>
-      <a href="portfolio.html">Portfolio</a>
+  <header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">Valokuvaaja <small>luonnolliset tarinat</small></a>
+    <nav class="site-nav" aria-label="Päävalikko">
+      <a href="index.html">Etusivu</a>
       <a href="palvelut.html">Palvelut</a>
       <a href="yhteys.html">Yhteys</a>
     </nav>
-  </header>
+  </div>
+</header>
 
   <main class="container">
     <h1>Palvelut</h1>
@@ -285,15 +56,26 @@
       </div>
     </section>
 
-    <!-- CTA portfolioon -->
-    <section class="cta-block">
-      <h2>Katso portfolio</h2>
-      <p>Katso lisää kuvia ja esimerkkejä eri kategorioista portfolion puolella.</p>
-      <a class="btn" href="portfolio.html">Siirry portfolioon</a>
+    <!-- CTA -->
+    <section class="card" style="text-align:center; padding: 34px 24px; margin-top: 26px;">
+      <div class="kicker">Seuraava askel</div>
+      <h2 style="margin-top:10px;">Kysytään päivämäärä ja suunnitellaan</h2>
+      <p class="lead" style="margin-left:auto; margin-right:auto;">
+        Kerro lyhyesti mitä toivot (päivä, paikka, tyyli), niin palaan sinulle nopeasti.
+      </p>
+      <a class="btn solid" href="yhteys.html" style="margin-top:10px;">Ota yhteyttä</a>
     </section>
   </main>
 
-  <footer>© 2025 Valokuvaaja. Kaikki oikeudet pidätetään.</footer>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <p>© 2026 Valokuvaaja. Kaikki oikeudet pidätetään.</p>
+    <div class="footer-links">
+      <a href="palvelut.html">Palvelut</a>
+      <a href="yhteys.html">Yhteys</a>
+    </div>
+  </div>
+</footer>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
